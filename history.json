@@ -1,0 +1,430 @@
+[
+  {
+    "job_id": "5bd2a5dd97d24f37824cf0bc3c253c6a",
+    "task": "real_sr",
+    "variant": "x4_large",
+    "status": "done",
+    "results": [
+      {
+        "file_id": "b1fc13e287f64c10ae018d72b958bab7.png",
+        "orig_name": "birdx4.png",
+        "original_url": "/uploads/b1fc13e287f64c10ae018d72b958bab7.png",
+        "output_url": "/outputs/b1fc13e287f64c10ae018d72b958bab7_real_sr_x4_large.png",
+        "comparison_url": "/outputs/b1fc13e287f64c10ae018d72b958bab7_real_sr_x4_large_cmp.png",
+        "output_info": {
+          "width": 288,
+          "height": 288,
+          "channels": 3,
+          "size_kb": 144.2
+        },
+        "metrics": {},
+        "proc_sec": 11.0
+      }
+    ],
+    "errors": [],
+    "total": 1,
+    "elapsed_sec": 11,
+    "completed_at": 1774274651.383968,
+    "orig_names": {
+      "b1fc13e287f64c10ae018d72b958bab7.png": "birdx4.png"
+    }
+  },
+  {
+    "job_id": "e891cbc3bb7c4714877e2b0e477180c5",
+    "task": "real_sr",
+    "variant": "x4_large",
+    "status": "done",
+    "results": [
+      {
+        "file_id": "874aaa6b01e34c1da5feda7e8cef3bba.jpeg",
+        "orig_name": "hand.jpeg",
+        "original_url": "/uploads/874aaa6b01e34c1da5feda7e8cef3bba.jpeg",
+        "output_url": "/outputs/874aaa6b01e34c1da5feda7e8cef3bba_real_sr_x4_large.png",
+        "comparison_url": "/outputs/874aaa6b01e34c1da5feda7e8cef3bba_real_sr_x4_large_cmp.png",
+        "output_info": {
+          "width": 2448,
+          "height": 1632,
+          "channels": 3,
+          "size_kb": 2860.8
+        },
+        "metrics": {},
+        "proc_sec": 119.0
+      }
+    ],
+    "errors": [],
+    "total": 1,
+    "elapsed_sec": 126,
+    "completed_at": 1774274551.8083,
+    "orig_names": {
+      "874aaa6b01e34c1da5feda7e8cef3bba.jpeg": "hand.jpeg"
+    }
+  },
+  {
+    "job_id": "d12a80b3965141d1a4970f14329a5e8d",
+    "task": "real_sr",
+    "variant": "x4",
+    "status": "done",
+    "results": [
+      {
+        "file_id": "02520f13aa7849ad80003ea1c62aa3f7.jpeg",
+        "orig_name": "audrey.jpeg",
+        "original_url": "/uploads/02520f13aa7849ad80003ea1c62aa3f7.jpeg",
+        "output_url": "/outputs/02520f13aa7849ad80003ea1c62aa3f7_real_sr_x4.png",
+        "comparison_url": "/outputs/02520f13aa7849ad80003ea1c62aa3f7_real_sr_x4_cmp.png",
+        "output_info": {
+          "width": 1668,
+          "height": 2400,
+          "channels": 3,
+          "size_kb": 4685.9
+        },
+        "metrics": {},
+        "proc_sec": 883.8
+      }
+    ],
+    "errors": [],
+    "total": 1,
+    "elapsed_sec": 888,
+    "completed_at": 1774261749.1758678,
+    "orig_names": {
+      "02520f13aa7849ad80003ea1c62aa3f7.jpeg": "audrey.jpeg"
+    }
+  },
+  {
+    "job_id": "c25722ad89374652b74a1cece209b148",
+    "task": "color_dn",
+    "variant": "noise15",
+    "status": "done",
+    "results": [
+      {
+        "file_id": "811560ae82fd496a8df5e738536cdb08.tif",
+        "orig_name": "7.tif",
+        "original_url": "/uploads/811560ae82fd496a8df5e738536cdb08.tif",
+        "output_url": "/outputs/811560ae82fd496a8df5e738536cdb08_color_dn_noise15.png",
+        "comparison_url": "/outputs/811560ae82fd496a8df5e738536cdb08_color_dn_noise15_cmp.png",
+        "output_info": {
+          "width": 500,
+          "height": 500,
+          "channels": 3,
+          "size_kb": 386.8
+        },
+        "metrics": {},
+        "proc_sec": 211.3
+      }
+    ],
+    "errors": [],
+    "total": 1,
+    "elapsed_sec": 219,
+    "completed_at": 1774253895.339263,
+    "orig_names": {
+      "811560ae82fd496a8df5e738536cdb08.tif": "7.tif"
+    }
+  },
+  {
+    "job_id": "a10d65d29ef04b45b54173f015ace4de",
+    "task": "jpeg_car",
+    "variant": "q40",
+    "status": "done",
+    "results": [
+      {
+        "file_id": "c70e33fe00644c9c9a821bb9843ac14f.png",
+        "orig_name": "10.png",
+        "original_url": "/uploads/c70e33fe00644c9c9a821bb9843ac14f.png",
+        "output_url": "/outputs/c70e33fe00644c9c9a821bb9843ac14f_jpeg_car_q40.png",
+        "comparison_url": "/outputs/c70e33fe00644c9c9a821bb9843ac14f_jpeg_car_q40_cmp.png",
+        "output_info": {
+          "width": 512,
+          "height": 512,
+          "channels": 3,
+          "size_kb": 429.1
+        },
+        "metrics": {},
+        "proc_sec": 1007.2
+      }
+    ],
+    "errors": [],
+    "total": 1,
+    "elapsed_sec": 1014,
+    "completed_at": 1774253245.481966,
+    "orig_names": {
+      "c70e33fe00644c9c9a821bb9843ac14f.png": "10.png"
+    }
+  },
+  {
+    "job_id": "b6ad6d4fed7c4125a9eee9a78f043f5a",
+    "task": "classical_sr",
+    "variant": "x8",
+    "status": "done",
+    "results": [
+      {
+        "file_id": "0c74a61530e74267bc484b87bf80bc13.png",
+        "orig_name": "birdx8.png",
+        "original_url": "/uploads/0c74a61530e74267bc484b87bf80bc13.png",
+        "output_url": "/outputs/0c74a61530e74267bc484b87bf80bc13_classical_sr_x8.png",
+        "comparison_url": "/outputs/0c74a61530e74267bc484b87bf80bc13_classical_sr_x8_cmp.png",
+        "output_info": {
+          "width": 288,
+          "height": 288,
+          "channels": 3,
+          "size_kb": 130.9
+        },
+        "metrics": {}
+      }
+    ],
+    "errors": [],
+    "total": 1,
+    "elapsed_sec": 5,
+    "completed_at": 1774251578.7442482,
+    "orig_names": {
+      "0c74a61530e74267bc484b87bf80bc13.png": "birdx8.png"
+    }
+  },
+  {
+    "job_id": "ea7cea0ba0a346b68c6d13dd800b98c4",
+    "task": "classical_sr",
+    "variant": "x3",
+    "status": "done",
+    "results": [
+      {
+        "file_id": "c3e299f5b4e34919b217e76acd691379.png",
+        "orig_name": "birdx4.png",
+        "original_url": "/uploads/c3e299f5b4e34919b217e76acd691379.png",
+        "output_url": "/outputs/c3e299f5b4e34919b217e76acd691379_classical_sr_x3.png",
+        "comparison_url": "/outputs/c3e299f5b4e34919b217e76acd691379_classical_sr_x3_cmp.png",
+        "output_info": {
+          "width": 216,
+          "height": 216,
+          "channels": 3,
+          "size_kb": 84.1
+        },
+        "metrics": {}
+      }
+    ],
+    "errors": [],
+    "total": 1,
+    "elapsed_sec": 1,
+    "completed_at": 1774251543.216768,
+    "orig_names": {
+      "c3e299f5b4e34919b217e76acd691379.png": "birdx4.png"
+    }
+  },
+  {
+    "job_id": "5712ea70ade9410283fb25493025ba1e",
+    "task": "classical_sr",
+    "variant": "x3",
+    "status": "done",
+    "results": [
+      {
+        "file_id": "17cffc80dce14692a57faee9afe2280b.png",
+        "orig_name": "birdx2.png",
+        "original_url": "/uploads/17cffc80dce14692a57faee9afe2280b.png",
+        "output_url": "/outputs/17cffc80dce14692a57faee9afe2280b_classical_sr_x3.png",
+        "comparison_url": "/outputs/17cffc80dce14692a57faee9afe2280b_classical_sr_x3_cmp.png",
+        "output_info": {
+          "width": 432,
+          "height": 432,
+          "channels": 3,
+          "size_kb": 281.1
+        },
+        "metrics": {}
+      },
+      {
+        "file_id": "0fc2eebccc044761904a4f5582fe14fd.png",
+        "orig_name": "birdx3.png",
+        "original_url": "/uploads/0fc2eebccc044761904a4f5582fe14fd.png",
+        "output_url": "/outputs/0fc2eebccc044761904a4f5582fe14fd_classical_sr_x3.png",
+        "comparison_url": "/outputs/0fc2eebccc044761904a4f5582fe14fd_classical_sr_x3_cmp.png",
+        "output_info": {
+          "width": 288,
+          "height": 288,
+          "channels": 3,
+          "size_kb": 139.3
+        },
+        "metrics": {}
+      }
+    ],
+    "errors": [],
+    "total": 2,
+    "elapsed_sec": 11,
+    "completed_at": 1774251506.315982,
+    "orig_names": {
+      "17cffc80dce14692a57faee9afe2280b.png": "birdx2.png",
+      "0fc2eebccc044761904a4f5582fe14fd.png": "birdx3.png"
+    }
+  },
+  {
+    "job_id": "37c6c9f0d2f54c559685f63ebeb89c60",
+    "task": "classical_sr",
+    "variant": "x2",
+    "status": "done",
+    "results": [
+      {
+        "file_id": "17cffc80dce14692a57faee9afe2280b.png",
+        "orig_name": "birdx2.png",
+        "original_url": "/uploads/17cffc80dce14692a57faee9afe2280b.png",
+        "output_url": "/outputs/17cffc80dce14692a57faee9afe2280b_classical_sr_x2.png",
+        "comparison_url": "/outputs/17cffc80dce14692a57faee9afe2280b_classical_sr_x2_cmp.png",
+        "output_info": {
+          "width": 288,
+          "height": 288,
+          "channels": 3,
+          "size_kb": 142.3
+        },
+        "metrics": {}
+      }
+    ],
+    "errors": [],
+    "total": 1,
+    "elapsed_sec": 10,
+    "completed_at": 1774251457.5554419,
+    "orig_names": {
+      "17cffc80dce14692a57faee9afe2280b.png": "birdx2.png"
+    }
+  },
+  {
+    "job_id": "03edf10470b64d8689be61923d264821",
+    "task": "real_sr",
+    "variant": "x4_large",
+    "status": "done",
+    "results": [
+      {
+        "file_id": "a753df14e65a474fb3e7f364b321da6b.png",
+        "orig_name": "birdx4.png",
+        "original_url": "/uploads/a753df14e65a474fb3e7f364b321da6b.png",
+        "output_url": "/outputs/a753df14e65a474fb3e7f364b321da6b_real_sr_x4_large.png",
+        "comparison_url": "/outputs/a753df14e65a474fb3e7f364b321da6b_real_sr_x4_large_cmp.png",
+        "output_info": {
+          "width": 288,
+          "height": 288,
+          "channels": 3,
+          "size_kb": 144.2
+        },
+        "metrics": {}
+      }
+    ],
+    "errors": [],
+    "total": 1,
+    "elapsed_sec": 10,
+    "completed_at": 1774251009.069622,
+    "orig_names": {
+      "a753df14e65a474fb3e7f364b321da6b.png": "birdx4.png"
+    }
+  },
+  {
+    "job_id": "3186bb6fa10043d28cad2a7d35b0442c",
+    "task": "jpeg_car",
+    "variant": "q40",
+    "status": "done",
+    "results": [
+      {
+        "file_id": "ff6c590a323643d4a1dc61661158def9.png",
+        "orig_name": "12.png",
+        "original_url": "/uploads/ff6c590a323643d4a1dc61661158def9.png",
+        "output_url": "/outputs/ff6c590a323643d4a1dc61661158def9_jpeg_car_q40.png",
+        "comparison_url": "/outputs/ff6c590a323643d4a1dc61661158def9_jpeg_car_q40_cmp.png",
+        "output_info": {
+          "width": 512,
+          "height": 512,
+          "channels": 3,
+          "size_kb": 383.8
+        },
+        "metrics": {}
+      }
+    ],
+    "errors": [],
+    "total": 1,
+    "elapsed_sec": 804,
+    "completed_at": 1774250793.356642,
+    "orig_names": {
+      "ff6c590a323643d4a1dc61661158def9.png": "12.png"
+    }
+  },
+  {
+    "job_id": "3a03a87644d14c529f7421efe6bd2ccd",
+    "task": "jpeg_car",
+    "variant": "q40",
+    "status": "done",
+    "results": [],
+    "errors": [
+      "aafa2882cd454d99834b52d7eb3b2b8a.png: tile size must be a multiple of window_size"
+    ],
+    "total": 1,
+    "elapsed_sec": 0,
+    "completed_at": 1774249819.611978,
+    "orig_names": {
+      "aafa2882cd454d99834b52d7eb3b2b8a.png": "12.png"
+    }
+  },
+  {
+    "job_id": "3a35701a9a15423fb6b98397cb2e05a9",
+    "task": "jpeg_car",
+    "variant": "q40",
+    "status": "done",
+    "results": [],
+    "errors": [
+      "aafa2882cd454d99834b52d7eb3b2b8a.png: tile size must be a multiple of window_size"
+    ],
+    "total": 1,
+    "elapsed_sec": 25,
+    "completed_at": 1774249800.98869,
+    "orig_names": {
+      "aafa2882cd454d99834b52d7eb3b2b8a.png": "12.png"
+    }
+  },
+  {
+    "job_id": "a55dae5807634ee5a8caabc2824e61f8",
+    "task": "jpeg_car",
+    "variant": "q10",
+    "status": "done",
+    "results": [
+      {
+        "file_id": "cdff16f3275449999cebc85b34c0bf61.png",
+        "orig_name": "01.png",
+        "original_url": "/uploads/cdff16f3275449999cebc85b34c0bf61.png",
+        "output_url": "/outputs/cdff16f3275449999cebc85b34c0bf61_jpeg_car_q10.png",
+        "comparison_url": "/outputs/cdff16f3275449999cebc85b34c0bf61_jpeg_car_q10_cmp.png",
+        "output_info": {
+          "width": 256,
+          "height": 256,
+          "channels": 3,
+          "size_kb": 73.0
+        },
+        "metrics": {}
+      }
+    ],
+    "errors": [],
+    "total": 1,
+    "elapsed_sec": 37,
+    "completed_at": 1774249284.173391,
+    "orig_names": {
+      "cdff16f3275449999cebc85b34c0bf61.png": "01.png"
+    }
+  },
+  {
+    "job_id": "90f5a33b8c154084a27baed0b470f957",
+    "task": "color_jpeg_car",
+    "variant": "q10",
+    "status": "done",
+    "results": [
+      {
+        "file_id": "69a9130d6dbd464fa593a950810a6538.png",
+        "orig_name": "birdx4.png",
+        "output_url": "/outputs/69a9130d6dbd464fa593a950810a6538_color_jpeg_car_q10.png",
+        "comparison_url": "/outputs/69a9130d6dbd464fa593a950810a6538_color_jpeg_car_q10_cmp.png",
+        "output_info": {
+          "width": 72,
+          "height": 72,
+          "channels": 3,
+          "size_kb": 10.6
+        },
+        "metrics": {}
+      }
+    ],
+    "errors": [],
+    "total": 1,
+    "elapsed_sec": 25,
+    "completed_at": 1774247586.97662,
+    "orig_names": {
+      "69a9130d6dbd464fa593a950810a6538.png": "birdx4.png"
+    }
+  }
+]

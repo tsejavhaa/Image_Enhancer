@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Image Enhancer</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header class="header">
+  <div class="header-inner">
+    <div class="logo">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+        <rect width="32" height="32" rx="8" fill="url(#g)"/>
+        <path d="M8 24 L16 8 L24 24" stroke="white" stroke-width="2.5" stroke-linejoin="round"/>
+        <path d="M10 19 h12" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        <defs>
+          <linearGradient id="g" x1="0" y1="0" x2="32" y2="32">
+            <stop offset="0%" stop-color="#6366f1"/>
+            <stop offset="100%" stop-color="#8b5cf6"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <span>Image Enhancer</span>
+    </div>
+    <nav class="nav-tabs">
+      <button class="nav-tab active" data-panel="enhance">Enhance</button>
+      <button class="nav-tab" data-panel="models">Models</button>
+      <button class="nav-tab" data-panel="history">History</button>
+      <button class="nav-tab" data-panel="about">About</button>
+    </nav>
+    <div class="device-selector" id="deviceSelector">
+      <label class="device-selector-label">Device</label>
+      <div class="device-btn-group" id="deviceBtnGroup">
+        <button class="device-btn" data-device="cpu">CPU</button>
+        <button class="device-btn" data-device="mps" disabled>MPS</button>
+        <button class="device-btn" data-device="cuda" disabled>GPU</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ── MAIN ── -->
+<main>
+
+  <!-- ═══════════ ENHANCE PANEL ═══════════ -->
+  <section id="panel-enhance" class="panel active">
+    <div class="workspace">
+
+      <!-- LEFT: controls -->
+      <aside class="controls-pane">
+        <h2 class="pane-title">Settings</h2>
+
+        <!-- Task selector -->
+        <div class="field-group">
+          <label class="field-label">Task</label>
+          <div class="task-grid">
+            <button class="task-btn active" data-task="classical_sr">
+              <span class="task-icon">⬆</span>
+              <span class="task-name">Super Resolution</span>
+            </button>
+            <button class="task-btn" data-task="real_sr">
+              <span class="task-icon">🌟</span>
+              <span class="task-name">Real-World SR</span>
+            </button>
+            <button class="task-btn" data-task="color_dn">
+              <span class="task-icon">🎨</span>
+              <span class="task-name">Denoise Color</span>
+            </button>
+            <button class="task-btn" data-task="gray_dn">
+              <span class="task-icon">☁</span>
+              <span class="task-name">Denoise Gray</span>
+            </button>
+            <button class="task-btn" data-task="color_jpeg_car">
+              <span class="task-icon">🖼</span>
+              <span class="task-name">JPEG Color</span>
+            </button>
+            <button class="task-btn" data-task="jpeg_car">
+              <span class="task-icon">📄</span>
+              <span class="task-name">JPEG Gray</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Variant selector (dynamic) -->
+        <div class="field-group" id="variantGroup">
+          <label class="field-label">Variant</label>
+          <div class="variant-pills" id="variantPills"></div>
+        </div>
+
+        <!-- Tile settings -->
+        <div class="field-group">
+          <label class="field-label toggle-row">
+            Tiled Inference
+            <label class="toggle">
+              <input type="checkbox" id="useTile" checked />
+              <span class="toggle-slider"></span>
+            </label>
+          </label>
+          <div id="tileOptions" class="sub-options">
+            <label class="field-label small">Tile size (px)</label>
+            <input type="range" id="tileSize" min="128" max="1024" step="64" value="512" />
+            <span id="tileSizeVal">512</span>
+          </div>
+        </div>
+
+        <!-- Run button -->
+        <button class="btn-run" id="btnRun" disabled>
+          <span class="btn-run-icon">▶</span>
+          Enhance Images
+        </button>
+
+        <!-- Progress -->
+        <div class="progress-block" id="progressBlock" style="display:none">
+          <div class="progress-bar-wrap">
+            <div class="progress-bar" id="progressBar"></div>
+          </div>
+          <p class="progress-label" id="progressLabel">Initialising…</p>
+        </div>
+      <!-- ── Activity Monitor ── -->
+      <div class="monitor" id="monitor">
+        <div class="monitor-title">
+          <span class="monitor-dot" id="monitorDot"></span>
+          Activity Monitor
+        </div>
+
+        <!-- CPU -->
+        <div class="monitor-row">
+          <span class="monitor-label">CPU</span>
+          <div class="monitor-bar-wrap">
+            <div class="monitor-bar cpu-bar" id="cpuBar"></div>
+          </div>
+          <span class="monitor-val" id="cpuVal">–</span>
+        </div>
+
+        <!-- Per-core spark bars -->
+        <div class="monitor-cores" id="monitorCores"></div>
+
+        <!-- RAM -->
+        <div class="monitor-row">
+          <span class="monitor-label">RAM</span>
+          <div class="monitor-bar-wrap">
+            <div class="monitor-bar ram-bar" id="ramBar"></div>
+          </div>
+          <span class="monitor-val" id="ramVal">–</span>
+        </div>
+
+        <!-- GPU (hidden if not available) -->
+        <div class="monitor-row" id="gpuRow" style="display:none">
+          <span class="monitor-label">GPU</span>
+          <div class="monitor-bar-wrap">
+            <div class="monitor-bar gpu-bar" id="gpuBar"></div>
+          </div>
+          <span class="monitor-val" id="gpuVal">–</span>
+        </div>
+
+        <!-- Active job ticker -->
+        <div class="monitor-job" id="monitorJob" style="display:none">
+          <div class="monitor-job-label" id="monitorJobLabel"></div>
+          <div class="monitor-job-elapsed" id="monitorJobElapsed"></div>
+        </div>
+      </div>
+
+      </aside>
+
+      <!-- RIGHT: drop zone + results -->
+      <div class="content-pane">
+
+        <!-- Drop zone -->
+        <div class="drop-zone" id="dropZone">
+          <div class="drop-inner">
+            <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+              <circle cx="28" cy="28" r="28" fill="#f3f4f6"/>
+              <path d="M28 18 v12 M22 24 l6-6 6 6" stroke="#6366f1" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+              <rect x="16" y="34" width="24" height="4" rx="2" fill="#e5e7eb"/>
+            </svg>
+            <p class="drop-title">Drop images here</p>
+            <p class="drop-sub">JPG, PNG, BMP, TIF, WebP, EXR, HDR, JP2, AVIF, HEIC &amp; more · up to 64 MB each</p>
+            <label class="btn-secondary">
+              Browse files
+              <input type="file" id="fileInput" multiple accept=".jpg,.jpeg,.jpe,.jfif,.png,.bmp,.dib,.tif,.tiff,.webp,.pbm,.pgm,.ppm,.pnm,.hdr,.exr,.jp2,.j2k,.gif,.ico,.avif,.heic,.heif,image/*" hidden />
+            </label>
+          </div>
+        </div>
+
+        <!-- File list -->
+        <div class="file-list" id="fileList" style="display:none">
+          <div class="file-list-header">
+            <span id="fileCount">0 files</span>
+            <button class="btn-clear" id="btnClearFiles">✕ Clear all</button>
+          </div>
+          <div id="fileItems"></div>
+        </div>
+
+        <!-- Results -->
+        <div class="results-section" id="resultsSection" style="display:none">
+          <h3 class="section-title">Results</h3>
+          <div class="results-grid" id="resultsGrid"></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ MODELS PANEL ═══════════ -->
+  <section id="panel-models" class="panel">
+    <div class="panel-inner">
+      <h2 class="panel-heading">Pretrained Models</h2>
+      <p class="panel-sub">Models are downloaded automatically on first use and cached locally.</p>
+      <div id="modelTable" class="model-table">
+        <div class="table-loading">Loading…</div>
+      </div>
+      <div class="model-actions">
+        <button class="btn-secondary" id="btnClearCache">Clear memory cache</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ ABOUT PANEL ═══════════ -->
+  <section id="panel-about" class="panel">
+    <div class="panel-inner about-layout">
+      <div>
+        <h2 class="panel-heading">About Image Enhancer</h2>
+        <p>SwinIR is a state-of-the-art image restoration model based on <strong>Swin Transformer</strong>, 
+        published at ICCV 2021. It achieves top performance across multiple restoration tasks.</p>
+
+        <h3 class="about-h3">Supported Tasks</h3>
+        <div class="about-tasks">
+          <div class="about-task-card">
+            <div class="atc-title">Super Resolution</div>
+            <div class="atc-desc">Upscale images 2×, 3×, 4×, or 8× using classical or real-world SR models.</div>
+          </div>
+          <div class="about-task-card">
+            <div class="atc-title">Denoising</div>
+            <div class="atc-desc">Remove Gaussian noise (σ=15/25/50) from colour or grayscale images.</div>
+          </div>
+          <div class="about-task-card">
+            <div class="atc-title">JPEG Artifact Reduction</div>
+            <div class="atc-desc">Restore compression artefacts at JPEG quality 10/20/30/40 for colour and gray images.</div>
+          </div>
+        </div>
+
+        <h3 class="about-h3">Training</h3>
+        <p>Use <code>train.py</code> to fine-tune any model on your own paired dataset:</p>
+        <pre class="code-block">python train.py \
+  --task classical_sr \
+  --variant x4 \
+  --epochs 100 \
+  --batch_size 8</pre>
+
+        <h3 class="about-h3">Architecture</h3>
+        <pre class="code-block">swinir_app/
+├── app.py              # Flask server
+├── train.py            # Fine-tuning script
+├── config.py           # Task/model registry
+├── models/
+│   └── network_swinir.py   # SwinIR architecture
+├── core/
+│   ├── inference.py        # Preprocessing + inference
+│   └── model_manager.py    # Download & cache models
+├── utils/
+│   ├── metrics.py          # PSNR / SSIM
+│   ├── image_utils.py      # I/O helpers
+│   └── logger.py
+├── pretrained_models/  # Downloaded .pth files
+├── uploads/            # User uploads
+└── outputs/            # Enhanced images</pre>
+
+        <p>Reference: <a href="https://github.com/JingyunLiang/SwinIR" target="_blank" class="link">
+          JingyunLiang/SwinIR on GitHub ↗
+        </a></p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════ HISTORY PANEL ═══════════ -->
+  <section id="panel-history" class="panel">
+    <div class="panel-inner">
+      <div class="history-header">
+        <div>
+          <h2 class="panel-heading">Job History</h2>
+          <p class="panel-sub">All completed enhancement jobs. Click a result to preview or download it.</p>
+        </div>
+        <div class="history-header-actions">
+          <button class="btn-secondary" id="btnRefreshHistory">↺ Refresh</button>
+          <button class="btn-danger"    id="btnClearHistory">✕ Clear all</button>
+        </div>
+      </div>
+      <div id="historyList"><div class="history-empty">No history yet.</div></div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ── Result card modal ── -->
+<div id="modal" class="modal" style="display:none">
+  <div class="modal-backdrop" id="modalBackdrop"></div>
+  <div class="modal-box">
+    <button class="modal-close" id="modalClose">✕</button>
+    <div class="modal-content" id="modalContent"></div>
+  </div>
+</div>
+
+<script src="/static/js/app.js"></script>
+</body>
+</html>
