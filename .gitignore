@@ -48,3 +48,6 @@ data/
 datasets/
 *.zip
 *.tar.gz
+
+# Virtual environment
+.venv/
