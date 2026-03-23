@@ -3,6 +3,7 @@
 A full-featured web application for image restoration using **SwinIR** (Swin Transformer for Image Restoration), built with Flask, PyTorch, and a clean responsive UI.
 
 ![](templates/images.gif)
+
 ---
 
 ## Features
@@ -22,6 +23,7 @@ A full-featured web application for image restoration using **SwinIR** (Swin Tra
 - **Activity Monitor** — real-time CPU %, per-core spark bars, and RAM usage in the Settings panel while inference runs
 - **Wide format support** — JPG, PNG, BMP, TIF, WebP, EXR, HDR, JP2, AVIF, HEIC, PBM/PGM/PPM, GIF, ICO and more
 - **PSNR / SSIM metrics** computed when a ground-truth reference is available
+- **Device selector** — choose CPU, MPS (Apple Silicon), or CUDA GPU from the header; app auto-detects and recommends the best available device
 - **Fine-tuning** via `train.py` with cosine LR scheduling and checkpoint saving
 
 ---
@@ -33,6 +35,9 @@ A full-featured web application for image restoration using **SwinIR** (Swin Tra
 ```bash
 pip install -r requirements.txt
 ```
+
+> **macOS note:** Port 5000 is taken by AirPlay Receiver. The app defaults to **port 8080**.
+> Disable AirPlay Receiver in *System Settings → General → AirDrop & Handoff* if you prefer port 5000.
 
 ### 2. Run the web app
 
@@ -46,15 +51,18 @@ Open **http://localhost:8080** in your browser.
 
 ### 3. Enhance images
 
-1. Select a **task** (e.g. Super Resolution)
-2. Pick a **variant** (e.g. ×4)
-3. Drop or browse image files — any common format accepted
-4. (Optional) adjust **Tile Size** — snapped to a valid multiple automatically
-5. Click **Enhance Images** — model downloads on first run, then inference starts
-6. Watch the **Activity Monitor** for live CPU/RAM feedback during inference
-7. Click any result card to open the **before/after slider**; download from the modal or the card
+1. Select a **device** in the header (CPU / MPS / GPU) — the best available is auto-selected
+2. Select a **task** (e.g. Super Resolution)
+3. Pick a **variant** (e.g. ×4)
+4. Drop or browse image files — any common format accepted
+5. (Optional) adjust **Tile Size** — snapped to a valid multiple automatically
+6. Click **Enhance Images** — model downloads on first run, then inference starts
+7. Watch the **Activity Monitor** for live CPU/RAM feedback during inference
+8. Click any result card to open the **before/after slider**; download from the modal or the card
 
-> **CPU inference is slow** — a 512×512 image through a denoiser or JPEG model typically takes 5–15 minutes on CPU. Use a machine with a CUDA GPU for practical speeds.
+> **CPU inference is slow** — a 512×512 image through a denoiser or JPEG model typically takes 5–15 minutes on CPU.  
+> On **Apple Silicon (M1/M2/M3)** select **MPS** in the device selector for ~5–15× faster inference using the Metal GPU.  
+> On machines with an NVIDIA GPU, select **GPU (CUDA)** for the fastest results.
 
 ---
 
@@ -91,6 +99,30 @@ Located at the bottom of the Settings panel. Polls `/api/system` every 3 seconds
 pip install psutil
 ```
 Verify with: `http://localhost:8080/api/system/debug`
+
+---
+
+## Device Selector
+
+The **Device** button group in the top-right header lets you choose which compute device SwinIR runs on. On page load the app queries `/api/devices` and automatically enables only the devices available on your machine.
+
+| Button | Colour when active | When available |
+|---|---|---|
+| **CPU** | Blue | Always |
+| **MPS** | Purple | Apple Silicon (M1 / M2 / M3 / M4) |
+| **GPU** | Green | NVIDIA CUDA GPU |
+
+### Recommended devices by machine
+
+| Machine | Recommended | Typical 512×512 time |
+|---|---|---|
+| Apple M1 / M2 / M3 iMac, MacBook | **MPS** | 20–60 s |
+| Linux / Windows with NVIDIA GPU | **GPU** | 2–10 s |
+| Any machine, no GPU | **CPU** | 5–15 min |
+
+MPS uses Apple's **Metal Performance Shaders** framework to run the model on the M1/M2/M3 GPU cores — typically 5–15× faster than CPU on the same chip.
+
+> **Note:** switching devices mid-session keeps both model copies in memory. Use **Models → Clear memory cache** to free the previous device's copy.
 
 ---
 
@@ -224,6 +256,7 @@ Best model (by validation PSNR) is saved as `<task>_<variant>_best.pth`.
 
 | Endpoint | Method | Description |
 |---|---|---|
+| `GET /api/devices` | GET | Available compute devices and recommended choice |
 | `GET /api/system` | GET | Live CPU, RAM, GPU, active job info |
 | `GET /api/system/debug` | GET | Raw psutil diagnostics for troubleshooting |
 
@@ -239,7 +272,8 @@ Best model (by validation PSNR) is saved as `<task>_<variant>_best.pth`.
   "task":      "classical_sr",
   "variant":   "x4",
   "use_tile":  true,
-  "tile_size": 512
+  "tile_size": 512,
+  "device":    "mps"
 }
 ```
 
@@ -247,7 +281,7 @@ Best model (by validation PSNR) is saved as `<task>_<variant>_best.pth`.
 
 ## Known Limitations
 
-- **CPU inference is very slow** — SwinIR is a heavy transformer model. A 512×512 image can take 5–15 minutes on CPU. A CUDA GPU reduces this to seconds.
+- **CPU inference is very slow** — SwinIR is a heavy transformer model. A 512×512 image can take 5–15 minutes on CPU. Use **MPS** on Apple Silicon or **GPU** on NVIDIA machines for practical speeds.
 - **Uploads are not cleaned up automatically** — the `uploads/` folder grows over time. Delete files manually or add a scheduled cleanup task.
 - **History only captures completed jobs** — if the server crashes mid-job the partial result is not saved to `history.json`.
 
@@ -257,7 +291,7 @@ Best model (by validation PSNR) is saved as `<task>_<variant>_best.pth`.
 
 | Version | Changes |
 |---|---|
-| **Current** | Activity Monitor (CPU/RAM/per-core live), job history panel with per-result delete, before/after drag slider in modal, per-image processing time chip, wide format support (EXR/HDR/AVIF/HEIC/…), tile-size auto-snap to window_size multiple, original filename in all progress messages, `timm` deprecation warning fix, double file-picker bug fix, grayscale output handling fix |
+| **Current** | Device selector (CPU / MPS / GPU) with auto-detection and Apple Silicon MPS support, Activity Monitor (CPU/RAM/per-core live), job history panel with per-result delete, before/after drag slider in modal, per-image processing time chip, wide format support (EXR/HDR/AVIF/HEIC/…), tile-size auto-snap to window_size multiple, original filename in all progress messages, `timm` deprecation warning fix, double file-picker bug fix, grayscale output handling fix |
 | **Initial** | Super Resolution, Denoising, JPEG CAR, drag-and-drop upload, SSE progress, tiled inference, PSNR/SSIM metrics, `train.py` fine-tuning |
 
 ---
